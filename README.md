@@ -2,7 +2,7 @@
 
 
 This is Repository for basdat forum,
-  - it has forntend and backend folder 
+  - it have forntend and backend folder 
   - each folder has their own dependency
   - By default , the frontend will hosted at 3000 and backend at 5000.
 
