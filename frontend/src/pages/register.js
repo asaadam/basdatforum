@@ -65,10 +65,14 @@ export default class Register extends Component {
     }
 
     if(result.error.message.includes('username')){
-      this.setState({ errorMessage: "Username invalid" });
+      this.setState({ errorMessage: "Username invalid " });
+      this.setState({signup:false})
+
     }
     else{
-      this.setState({ errorMessage: "Password invalid" });
+      this.setState({ errorMessage: "Password invalid oi" });
+      this.setState({signup:false})
+
 
     }
     return false;
@@ -97,10 +101,8 @@ export default class Register extends Component {
           throw new Error(error.message);
         });
       }).then(user=>{
-        console.log(user);
         this.setState({done:true})
         this.setState({signup:false})
-
       }).catch(error=>{
         this.setState({ errorMessage: error.message });
         this.setState({signup:false})

@@ -13,7 +13,29 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
             isOpen :!this.state.isOpen
         });
     }
+    logout=()=>{
+      localStorage.clear();
+
+    }
+
     render(){
+      if(localStorage.token){
+        return(
+          <div>
+        <Navbar color="primary" dark className="mb-5">
+        <Container>
+          <NavbarBrand href="/">Forum Basdat</NavbarBrand>
+          <Link to={`/login`}>
+          <Button color='warning' onClick={this.logout} >
+          Logout
+          </Button>
+          </Link>
+          
+        </Container>
+      </Navbar>
+    </div>
+    )
+      }
         return(
             <div>
             <Navbar color="primary" dark className="mb-5">
@@ -38,8 +60,8 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
           </div>
         );
 
-        
-    }
+      }
+    
 
    
 
