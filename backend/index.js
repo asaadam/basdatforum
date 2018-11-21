@@ -15,7 +15,9 @@ app.get('/', (req, res) => {
     message: '🦄🌈✨Hello World! 🌈✨🦄'
   });
 });
+// app.use('/authAzure',authAzure);
 app.use('/auth',auth);
+
 
 function notFound(req, res, next) {
   res.status(404);
@@ -38,3 +40,4 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log('Listening on port', port);
 });
+

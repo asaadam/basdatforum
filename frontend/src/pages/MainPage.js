@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import LandingPage from './ladingpage';
 import DashBoard from './dashboard';
+import { BrowserRouter as Router, Route, Link ,Redirect} from "react-router-dom";
+
 export default class MainPage extends Component {
     constructor(props){
         super(props);
@@ -18,8 +20,9 @@ export default class MainPage extends Component {
 
     return (
       <div>
-      <h1>you should login</h1>
-      
+        
+      <h1>You Should Login To Use This Forum</h1>
+        
       </div>
     )
   }

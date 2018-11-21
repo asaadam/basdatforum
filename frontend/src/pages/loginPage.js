@@ -44,12 +44,11 @@ export default class LoginPage extends Component {
         username : this.state.user.username,
         password : this.state.user.password
       }
-      console.log(body)
+      
       fetch (URL_LOGIN,{
         method: 'POST',
         headers:{
           'content-type':'application/json'
-         
         },
         body:JSON.stringify(body),
       }).then(response=>{
@@ -94,9 +93,11 @@ export default class LoginPage extends Component {
     console.log(result);
     if (result.error.message.includes('username')) {
       this.setState({ errorMessage: "Username invalid" });
+      this.setState({login:false})
     }
     else {
       this.setState({ errorMessage: "Password invalid" });
+      this.setState({login:false})
 
     }
     return false;
