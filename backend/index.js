@@ -4,6 +4,7 @@ const cors = require('cors');
 const app = express();
 
 require('dotenv').config();
+const post = require('./posting/index');
 const auth = require('./auth/index');
 app.use(volleyball);
 app.use(cors({
@@ -15,9 +16,8 @@ app.get('/', (req, res) => {
     message: '🦄🌈✨Hello World! 🌈✨🦄'
   });
 });
-// app.use('/authAzure',authAzure);
 app.use('/auth',auth);
-
+app.use('/post',post);
 
 function notFound(req, res, next) {
   res.status(404);
