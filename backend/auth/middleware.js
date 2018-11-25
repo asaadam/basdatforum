@@ -9,9 +9,10 @@ require('dotenv').config();
 function checkToken(req,res,next){
     console.log('check auth')
     const authHeader = req.get('authorization');
+    if (authHeader){
         jwt.verify(authHeader,process.env.TOKEN_SECRET,(err,user)=>{
             if (err){
-                res.status(401).json("Unauthorized");
+                res.status(500 ).json("Server Error");
             }
             else{
                 req.user=user;
@@ -19,10 +20,25 @@ function checkToken(req,res,next){
             }
         })
     }
+    else{
+        next();
+    }
+    }
 
+    function isLoggedIn(req, res, next) {
+        console.log(req.user);
+        if (req.user) {
+          next();
+        } else {
+          const error = new Error('Unauthorized');
+          res.status(401);
+          next(error);
+        }
+      }
+      
   
 
 
 module.exports={
-    checkToken
+    checkToken,isLoggedIn
 }

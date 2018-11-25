@@ -6,13 +6,32 @@ var knex = require('knex')(options);
 
 
 router.get('/',(req,res)=>{
-    res.json({
-        message:'Hello',
+    res.json(
+     req.user
+    )
+})
+
+
+
+
+//doesn't need any body to accses . this is get method
+router.get('/getThread',(req,res,next)=>{
+    const query= "Select * from thread "
+    console.log(query);
+    knex.schema.raw(query).then(ress=>{
+        res.json(ress);
+    }).catch(err=>{
+        res.status(404);
+        const error = 'Something Error  , please contact adminstrator'
+        next(error);
     })
 })
 //doesn't need any body to accses . this is get method
-router.get('/getThread',(req,res,next)=>{
-    knex.schema.raw("Select * from thread").then(ress=>{
+
+router.get('/getOwnThread',(req,res,next)=>{
+    const query= "Select * from thread where idUser ='"+req.user._id+"'"
+    console.log(query);
+    knex.schema.raw(query).then(ress=>{
         res.json(ress);
     }).catch(err=>{
         res.status(404);
@@ -21,13 +40,11 @@ router.get('/getThread',(req,res,next)=>{
     })
 })
 
-
 //when you want to accses with post method in this route , 
 //you need to pass body like this
 /*
 
 {
-    "idUser": 6,
     "title": "Coba dari Backend 2",
     "post": "Mari kita coba apakah bisa pada percobaan ke 2 ini"
 }
@@ -37,7 +54,10 @@ router.get('/getThread',(req,res,next)=>{
 */
 
 router.post('/postThread',(req,res,next)=>{
-    let query="insert into thread(idUser,title,post) values("+req.body.idUser+",'"+req.body.title+"','"+req.body.post+"')"
+    console.log(req.user);
+    let query="insert into thread(idUser,title,post,username)" +
+    "values("+req.user._id+",'"+req.body.title+"','"+req.body.post+"','"+req.user.username+"')"
+    console.log(query);
     knex.schema.raw(query).then(ress=>{
         res.json('done');
     }).catch(err=>{

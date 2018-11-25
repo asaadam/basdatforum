@@ -11,10 +11,10 @@ app.use(volleyball);
 app.use(cors({
   origin:'http://localhost:3000'
 }))
+app.use(middleware.checkToken);
 app.use(express.json());
 app.use('/auth',auth);
-app.use('/api',middleware.checkToken,api);
-
+app.use('/api',middleware.isLoggedIn,api);
 app.get('/', (req, res) => {
   res.json({
     message: '🦄🌈✨Hello World! 🌈✨🦄'
