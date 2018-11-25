@@ -5,7 +5,13 @@ import LandingPage from './pages/ladingpage'
 import './App.css';
 import { BrowserRouter as Router, Redirect ,Route,Switch} from "react-router-dom";
 import MainPage from './pages/MainPage';
+import Cardd from './component/Cardd';
+import Post from './component/Post';
 
+const jwt = require('jsonwebtoken');
+let decoded = jwt.decode(localStorage.token);
+console.log(decoded._id);
+console.log(decoded.username);
 
 class App extends Component {
   render() {
@@ -17,6 +23,12 @@ class App extends Component {
         </NavBar>
         <MainPage>
         </MainPage>
+        {localStorage.token && 
+        <Post>
+        </Post>}
+        {localStorage.token && 
+        <Cardd>
+        </Cardd>}
 
         </div>
      
