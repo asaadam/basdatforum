@@ -69,7 +69,6 @@ router.post('/login',(req,res,next)=>{
                         _id:ress[0].idUser,
                         username:ress[0].username
                     };
-                    console.log(payload);
                     console.log(process.env.TOKEN_SECRET);
                     jwt.sign(payload,process.env.TOKEN_SECRET,{
                         expiresIn :'1d'

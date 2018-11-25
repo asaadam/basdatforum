@@ -4,20 +4,22 @@ const cors = require('cors');
 const app = express();
 
 require('dotenv').config();
-const post = require('./posting/index');
+const api = require('./api/forum');
 const auth = require('./auth/index');
+const middleware = require('./auth/middleware');
 app.use(volleyball);
 app.use(cors({
   origin:'http://localhost:3000'
 }))
 app.use(express.json());
+app.use('/auth',auth);
+app.use('/api',middleware.checkToken,api);
+
 app.get('/', (req, res) => {
   res.json({
     message: '🦄🌈✨Hello World! 🌈✨🦄'
   });
 });
-app.use('/auth',auth);
-app.use('/post',post);
 
 function notFound(req, res, next) {
   res.status(404);
