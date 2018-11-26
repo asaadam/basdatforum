@@ -60,6 +60,7 @@ export default class LoginPage extends Component {
           throw new Error(error.message);
         });
       }).then(token=>{
+        console.log('token' + token)
         localStorage.token=token;
         this.setState({done:true});
         this.setState({login:false});

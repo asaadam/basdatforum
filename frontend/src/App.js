@@ -7,11 +7,9 @@ import { BrowserRouter as Router, Redirect ,Route,Switch} from "react-router-dom
 import MainPage from './pages/MainPage';
 import Cardd from './component/Cardd';
 import Post from './component/Post';
+import { Container, Row, Col } from 'reactstrap';
 
-const jwt = require('jsonwebtoken');
-let decoded = jwt.decode(localStorage.token);
-console.log(decoded._id);
-console.log(decoded.username);
+
 
 class App extends Component {
   render() {
@@ -21,6 +19,7 @@ class App extends Component {
         <div className="App">
         <NavBar>
         </NavBar>
+        <Container>
         <MainPage>
         </MainPage>
         {localStorage.token && 
@@ -29,6 +28,7 @@ class App extends Component {
         {localStorage.token && 
         <Cardd>
         </Cardd>}
+        </Container>
 
         </div>
      
