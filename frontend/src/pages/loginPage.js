@@ -109,7 +109,7 @@ export default class LoginPage extends Component {
       <div>
             <Route path={`/dashboard`} component={DashBoard}/>
 
-        {this.state.login&&(<img src={require('../asset/loading.svg')}></img>)}
+        {this.state.login&&(<img src={require('../asset/loads.svg')}></img>)}
         {this.state.errorMessage && (
           <Alert color="danger">{this.state.errorMessage}</Alert>
         )}

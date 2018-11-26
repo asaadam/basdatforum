@@ -12,6 +12,7 @@ export default class Cardd extends Component {
         }
         console.log(localStorage.token);
     }
+    
     componentDidMount(){
       this.setState({loading: true});
         fetch('http://localhost:5000/api/getThread',{
@@ -40,11 +41,13 @@ export default class Cardd extends Component {
 
       this.setState({loading: false});
     }
+
+  
   render() {
     console.log(this.state.post);
     return (
       <div>
-        {this.state.loading&&(<img src={require('../asset/loading.svg')}></img>)}
+        {this.state.loading&&(<img src={require('../asset/loads.svg')}></img>)}
         {this.state.post.map(post => (
             <Ccard
               

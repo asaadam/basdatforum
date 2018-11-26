@@ -74,7 +74,7 @@ export default class Post extends Component {
     return (
       <Form onSubmit={this.login}>
           <FormGroup>
-            <Label for="exampleText">Text Area</Label>
+            <Label for="exampleText">Post Thread</Label>
             <Input type="text" placeholder="Thead Title" name="postTitle" id="threadTitle" onChange={this.handleChange}/>
             <Input type="textarea" placeholder="What do u think?" name="postThread" id="postThread" onChange={this.handleChange}/>
             <Button>Post Thread</Button>

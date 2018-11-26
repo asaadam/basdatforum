@@ -5,7 +5,7 @@ module.exports ={
     connection: {
       server : 'asaadam.database.windows.net',
       user : 'asaadam',
-      password : 'G@me9898',
+      password : 'game9898@',
       database:'Basdat',
       options: {
           port: 1433,

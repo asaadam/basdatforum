@@ -10,7 +10,6 @@ import Post from './component/Post';
 import { Container, Row, Col } from 'reactstrap';
 
 
-
 class App extends Component {
   render() {
    
