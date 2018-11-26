@@ -8,10 +8,7 @@ import MainPage from './pages/MainPage';
 import Cardd from './component/Cardd';
 import Post from './component/Post';
 
-const jwt = require('jsonwebtoken');
-let decoded = jwt.decode(localStorage.token);
-console.log(decoded._id);
-console.log(decoded.username);
+
 
 class App extends Component {
   render() {

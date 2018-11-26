@@ -9,25 +9,22 @@ export default class Cardd extends Component {
         this.state={
           post: [],
         }
-        console.log(props);
+        console.log(this.state.post);
     }
+    
     componentDidMount(){
-        fetch('http://localhost:5000/post/getThread').then( results => {
+        fetch('http://localhost:5000/auth/getThread').then( results => {
             return results.json();
         }).then(data => {
             this.setState({post:data});
         })
     }
+
+  
   render() {
     return (
       <div>
-        {this.state.post.map(post => (
-            <Ccard
-              
-              {...post}
-            />
-          ))}
-     
+        
       </div>
     )
   }

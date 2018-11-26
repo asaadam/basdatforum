@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import LandingPage from './ladingpage';
 import DashBoard from './dashboard';
 import { BrowserRouter as Router, Route, Link ,Redirect} from "react-router-dom";
+import { decode } from 'punycode';
+var jwt  = require('jsonwebtoken');
 
 export default class MainPage extends Component {
     constructor(props){
@@ -14,6 +16,10 @@ export default class MainPage extends Component {
   render() {
 
     if (localStorage.token)
+    console.log(jwt.verify(localStorage.token,'asaadamyusufrakathariqnazhim',
+    (err,decoded)=>{
+      console.log(decoded)
+    }))
     return(
         <DashBoard></DashBoard>
     )
