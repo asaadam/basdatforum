@@ -16,7 +16,7 @@ router.get('/',(req,res)=>{
 
 //doesn't need any body to accses . this is get method
 router.get('/getThread',(req,res,next)=>{
-    const query= "Select * from thread "
+    const query= "Select * from thread order by idThread desc"
     console.log(query);
     knex.schema.raw(query).then(ress=>{
         res.json(ress);
