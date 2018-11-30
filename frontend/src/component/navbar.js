@@ -24,7 +24,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
           <div>
         <Navbar color="primary" dark className="mb-5">
         <Container>
-          <NavbarBrand href="/">Forum Basdat</NavbarBrand>
+          <NavbarBrand href="/dashboard">Forum Basdat</NavbarBrand>
           <Link to={`/login`}>
           <Button color='warning' onClick={this.logout} >
           Logout
@@ -40,7 +40,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
             <div>
             <Navbar color="primary" dark className="mb-5">
               <Container>
-                <NavbarBrand href="/">Forum Basdat</NavbarBrand>
+                <NavbarBrand href="/dashboard">Forum Basdat</NavbarBrand>
                 <Link to={`/login`}>
                 <Button color='warning' onClick={this.toggle} >
                 Login

@@ -36,6 +36,8 @@ router.get('/getOwnThread',(req,res,next)=>{
     })
 })
 
+
+
 //this get method need body of idThread . 
 //idThread is used to create an array of comment.
 router.get('/getComment',(req,res,next)=>{
@@ -57,8 +59,33 @@ router.get('/getOwnComment',(req,res,next)=>{
         res.status(404).json(err);
     })
 })
+/*
+{
+    "idThread": 3
+}
+*/
 
+router.post('/getAThread',(req,res,next)=>{
+    // console.log(req);
+    const query= "Select * from thread where idThread ="+req.body.idThread+""
+    console.log(query);
+    knex.schema.raw(query).then(ress=>{
+        res.json(ress);
+    }).catch(err=>{
+        res.status(404).json(err);
+    })
+})
 
+router.post('/getAComment',(req,res,next)=>{
+    // console.log(req);
+    const query= "select * from comment where idThread = "+req.body.idThread+" order by idComment desc"
+    console.log(query);
+    knex.schema.raw(query).then(ress=>{
+        res.json(ress);
+    }).catch(err=>{
+        res.status(404).json(err);
+    })
+})
 
 
 //when you want to accses with post thread method in this route , 

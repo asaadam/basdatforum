@@ -14,8 +14,7 @@ export default class Ccard extends Component {
         <img width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
         <CardBody> */}
           <CardText>{this.props.post}</CardText>
-          <CardLink href="#">Card Link</CardLink>
-          <CardLink href="#">Another Link</CardLink>
+          <CardLink href={'/detail?'+this.props.idThread}>Comment</CardLink>
         </CardBody>
       </Card>
     </div>
