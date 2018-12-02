@@ -142,7 +142,75 @@ router.post('/postComment',(req,res,next)=>{
 
 })
 
+//this is put method use for update comment 
+/*
+please be carefull if you want to edit comment please make sure you edit your own comment.
+
+it's gonna be checked with your token.
 
 
+   please send me body like this
+   {
+    "idComment": "your Comment Id",
+       "comment": "Comment"
+}
+
+
+*/
+
+router.put('/editComment',(req,res,next)=>{
+    let queryUser = "Select*From comment where idUser= "+req.user._id+"and idComment="+req.body.idComment;
+    knex.schema.raw(queryUser).then(ress=>{
+        if(ress.length!=0){
+                    let query = "UPDATE comment set comments = '"+req.body.comment+"' where idComment ="+req.body.idComment
+                    knex.schema.raw(query).then(ress=>{
+                        res.json('done');
+                    }).catch(err=>{
+                        res.status(404);
+                        res.json(err);
+                    })     
+        }
+        else{
+            res.status(401);
+            const error = new Error ("Not authorized");
+            next(error)
+        }
+    })
+})
+
+//this is put method use for update Thread 
+/*
+please be carefull if you want to edit comment please make sure you edit your own comment.
+
+it's gonna be checked with your token.
+
+   please send me body like this
+   {
+    "idThread": "your Thread Id",
+    "post": "post"
+}
+*/
+
+
+router.put('/editThread',(req,res,next)=>{
+    let queryUser = "Select*From thread where idUser= "+req.user._id+"and idThread="+req.body.idComment;
+    knex.schema.raw(queryUser).then(ress=>{
+        if(ress.length!=0){
+    let query = "UPDATE thread set post = '"+req.body.post+"' where idThread ="+req.body.idThread
+    knex.schema.raw(query).then(ress=>{
+        res.json('done');
+    }).catch(err=>{
+        res.status(404);
+        res.json(err);
+    })
+}
+else{
+    res.status(401);
+    const error = new Error ("Not authorized");
+    next(error)
+}
+
+})
+})
 
 module.exports = router;
