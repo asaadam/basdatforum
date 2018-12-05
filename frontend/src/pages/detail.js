@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { Container, Card, CardImg, CardText, CardBody, CardLink,
-  CardTitle, CardSubtitle } from 'reactstrap';
+  CardTitle, CardSubtitle, ButtonToolbar } from 'reactstrap';
 import { Input, Form, FormGroup, Label, Button } from 'reactstrap';
+var jwt  = require('jsonwebtoken');
+let username = jwt.decode(localStorage.token);
 
 
 export default class Detail extends Component {  
@@ -54,6 +57,26 @@ export default class Detail extends Component {
       })
       console.log(this.state.comment);
   } 
+  
+  delete = (idComment) =>{
+    console.log(idComment);
+    const URL_Delte = 'http://localhost:5000/api/deleteComment';
+    const body={
+      idComment : idComment
+    }
+    fetch(URL_Delte,{
+      method: 'DELETE',
+      headers:{
+        'content-type':'application/json',
+        'authorization': localStorage.token
+      },
+      body: JSON.stringify(body)
+    }).then(res=>{
+      window.location.reload();
+    }).catch(err=>{
+       console.log("gagal delete");
+    })
+  }
   komen = (event) => {
     let URL_POST = 'http://localhost:5000/api/postComment';
     this.setState({ errorMessage: "" })
@@ -72,12 +95,13 @@ export default class Detail extends Component {
       },
       body:JSON.stringify(body),
     }).then(response=>{
-      if(response.ok){
-        return response.json();   
-      }
-      return response.json().then(error=>{
-        throw new Error(error.message);
-      });
+      // if(response.ok){
+      //   return response.json();   
+      // }
+      // return response.json().then(error=>{
+      //   throw new Error(error.message);
+      // });
+      window.location.reload();
     }).catch(error=>{
       console.log('fetch error'+error)
       this.setState({ errorMessage: error.message });
@@ -127,14 +151,32 @@ export default class Detail extends Component {
           <h2>Comments</h2>
           {this.state.comment.map(komen => (
               <Card>
-              <CardBody>
-                <CardTitle>{komen.idUser}</CardTitle>
-                <CardSubtitle>{komen.comments}</CardSubtitle>
-              {/* </CardBody>
-              <img width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
-              <CardBody> */}
-                <CardText>{komen.currentTimeStamp}</CardText>
-              </CardBody>
+                <Container>
+                  <CardBody>
+                  <CardTitle>{komen.idUser}</CardTitle>
+                  <CardSubtitle>{komen.comments}</CardSubtitle>
+                {/* </CardBody>
+                <img width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
+                <CardBody> */}
+                  <CardText>{komen.currentTimeStamp}</CardText>
+                  </CardBody>
+                </Container>
+                <Container>
+                  {(komen.idUser == username._id) && 
+                  <ButtonToolbar>
+                    <Link to={{
+                      pathname: "/edit",
+                      state: {idComment: komen.idComment}
+                    }}>
+                      <Button bsStyle="primary">Edit</Button>
+                    </Link>
+                    <CardLink>
+                      <Button onClick={() => this.delete(komen.idComment)} bsStyle="danger">Delete</Button>
+                    </CardLink>
+                    
+                  </ButtonToolbar>
+                  }
+                </Container>
             </Card>
           ))}
         

@@ -40,8 +40,8 @@ router.get('/getOwnThread',(req,res,next)=>{
 
 //this get method need body of idThread . 
 //idThread is used to create an array of comment.
-router.get('/getComment',(req,res,next)=>{
-    const query = "Select * from comment where idThread = "+req.body.idThread
+router.post('/getComment',(req,res,next)=>{
+    const query = "Select * from comment where idComment = "+req.body.idComment
     knex.schema.raw(query).then(ress=>{
         res.json(ress);
     }).catch(err=>{
@@ -86,6 +86,7 @@ router.post('/getAComment',(req,res,next)=>{
         res.status(404).json(err);
     })
 })
+
 
 
 //when you want to accses with post thread method in this route , 
@@ -159,8 +160,10 @@ it's gonna be checked with your token.
 */
 
 router.put('/editComment',(req,res,next)=>{
-    let queryUser = "Select*From comment where idUser= "+req.user._id+"and idComment="+req.body.idComment;
+    let queryUser = "Select * From comment where idUser= "+req.user._id+" and idComment="+req.body.idComment;
+    console.log(queryUser)
     knex.schema.raw(queryUser).then(ress=>{
+        console.log(ress)
         if(ress.length!=0){
                     let query = "UPDATE comment set comments = '"+req.body.comment+"' where idComment ="+req.body.idComment
                     knex.schema.raw(query).then(ress=>{
@@ -213,4 +216,48 @@ else{
 })
 })
 
+router.delete('/deleteComment',(req,res,next)=>{
+    let queryUser = "Select * From comment where idUser= "+req.user._id+" and idComment="+req.body.idComment;
+    console.log(queryUser)
+    console.log(req.body.idComment);
+    knex.schema.raw(queryUser).then(ress=>{
+        console.log(ress)
+        if(ress.length!=0){
+                    let query = "delete comment where idComment ="+req.body.idComment
+                    knex.schema.raw(query).then(ress=>{
+                        res.json('done');
+                    }).catch(err=>{
+                        res.status(404);
+                        res.json(err);
+                    })     
+        }
+        else{
+            res.status(401);
+            const error = new Error ("Not authorized");
+            next(error)
+        }
+    })
+})
+
+router.delete('/deleteThread',(req,res,next)=>{
+    let queryUser = "Select * From thread where idUser= "+req.user._id+" and idThread="+req.body.idThread;
+    console.log(queryUser)
+    knex.schema.raw(queryUser).then(ress=>{
+        console.log(ress)
+        if(ress.length!=0){
+                    let query = "delete thread where idThread ="+req.body.idThread
+                    knex.schema.raw(query).then(ress=>{
+                        res.json('done');
+                    }).catch(err=>{
+                        res.status(404);
+                        res.json(err);
+                    })     
+        }
+        else{
+            res.status(401);
+            const error = new Error ("Not authorized");
+            next(error)
+        }
+    })
+})
 module.exports = router;
