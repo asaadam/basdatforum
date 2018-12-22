@@ -42,6 +42,7 @@ export default class Post extends Component {
       body:JSON.stringify(body),
     }).then(response=>{
       if(response.ok){
+        window.location.reload();
         return response.json();
         
       }

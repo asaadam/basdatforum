@@ -245,9 +245,16 @@ router.delete('/deleteThread',(req,res,next)=>{
     knex.schema.raw(queryUser).then(ress=>{
         console.log(ress)
         if(ress.length!=0){
-                    let query = "delete thread where idThread ="+req.body.idThread
+                    let query = "delete comment where idThread ="+req.body.idThread
                     knex.schema.raw(query).then(ress=>{
                         res.json('done');
+                        let querydel = "delete thread where idThread ="+req.body.idThread
+                        knex.schema.raw(querydel).then(ressss=>{
+                             res.json("terhapus");
+                        }).catch(error=>{
+                            res.status(404);
+                            res.json(erorr);
+                        })
                     }).catch(err=>{
                         res.status(404);
                         res.json(err);
